@@ -12,9 +12,37 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+Route::group(['prefix' => 'user'], function () {
+	Route::post('/register', 'User\UserController@create');
+	Route::post('/login', 'User\UserController@login');
+	Route::post('/edit', 'User\UserController@edit');
+});
+
+Route::group(['prefix' => 'project'], function () {
+	Route::post('/get', 'Project\ProjectController@get');
+	Route::post('/create', 'Project\ProjectController@create');
+	Route::post('/edit', 'Project\ProjectController@edit');
+	Route::post('/get/all', 'Project\ProjectController@getall');
+});
+
+Route::group(['prefix' => 'assignment'], function () {
+	Route::post('/get', 'Assignment\AssignmentController@get');
+	Route::post('/create', 'Assignment\AssignmentController@create');
+	Route::post('/edit', 'Assignment\AssignmentController@edit');
+	Route::post('/get/all', 'Assignment\AssignmentController@getall');
+});
+
+Route::group(['prefix' => 'project/collaborator'], function () {
+	Route::post('/invite', 'ProjectCollaborator\ProjectCollaboratorController@invite');
+	Route::post('/remove', 'ProjectCollaborator\ProjectCollaboratorController@remove');
+});
