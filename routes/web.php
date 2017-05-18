@@ -46,3 +46,25 @@ Route::group(['prefix' => 'project/collaborator'], function () {
 	Route::post('/invite', 'ProjectCollaborator\ProjectCollaboratorController@invite');
 	Route::post('/remove', 'ProjectCollaborator\ProjectCollaboratorController@remove');
 });
+
+
+Route::group(['prefix' => 'assignment/report'], function () {
+	Route::post('/get', 'AssignmentReport\AssignmentReportController@get');
+	Route::post('/create', 'AssignmentReport\AssignmentReportController@create');
+});
+
+
+Route::group(['prefix' => 'assignment/report/detail'], function () {
+	Route::post('/create', 'AssignmentReportDetail\AssignmentReportDetailController@create');
+	Route::post('/get', 'AssignmentReportDetail\AssignmentReportDetailController@get');
+	Route::post('/edit', 'AssignmentReportDetail\AssignmentReportDetailController@edit');
+	Route::post('/delete', 'AssignmentReportDetail\AssignmentReportDetailController@delete');
+});
+
+Route::group(['prefix' => 'assignment/quest'], function () {
+	Route::post('/create', 'AssignmentQuest\AssignmentQuestController@create');
+	Route::post('/get', 'AssignmentQuest\AssignmentQuestController@get');
+	Route::post('/edit', 'AssignmentQuest\AssignmentQuestController@edit');
+	Route::post('/delete', 'AssignmentQuest\AssignmentQuestController@delete');
+});
+

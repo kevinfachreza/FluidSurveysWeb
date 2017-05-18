@@ -5,12 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AssignmentQuest extends Model
+class AssignmentReportDetail extends Model
 {
     use SoftDeletes;
-
+    
     protected $dates = ['deleted_at'];
 
-    protected $table = 'assignment_quest';
-
+    protected $table = 'assignment_report_detail';
 }
