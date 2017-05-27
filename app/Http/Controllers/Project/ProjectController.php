@@ -18,6 +18,7 @@ class ProjectController extends Controller
 			$id = $request->input('id');
 			$name = $request->input('name');
 			$company = $request->input('company');
+			$ispc = $request->input('ispc');
 
 			$project = new Project;
 			$project->name = $name;
@@ -33,18 +34,31 @@ class ProjectController extends Controller
 			$projectcollab->save();
 		}
 		catch (\Exception $e) {	
-			return json_encode([
+			if($ispc)
+			{
+				return back()->with('message', 'Server Error. Please Try Again');
+			}
+			else
+			{
+				return json_encode([
 				'status' => 0,
 				'message' => 'Kesalahan Server. Silahkan coba lagi'
 				]);
+			}	
 		}
 
-
-		return json_encode([
+		if($ispc)
+		{
+			return redirect('project/'.$project->id)->with('message', 'Project Created');
+		}
+		else
+		{
+			return json_encode([
 			'status' => 1,
 			'message' => 'Project Berhasil Dibuat.',
 			'project' => $project
 			]);
+		}
 	}
 
 	public function get(Request $request)

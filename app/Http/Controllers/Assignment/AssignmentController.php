@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Assignment;
+use DB;
 
 class AssignmentController extends Controller
 {
@@ -98,16 +99,16 @@ class AssignmentController extends Controller
 
 	public function getall(Request $request)
 	{
-		$id = $request->input('id');
+		$project = $request->input('project');
 		
 		$query = "SELECT a.* FROM project p, project_collaborator pc, assignment a
 		WHERE p.id = pc.project_id 
 		AND a.project_id = p.id
-		AND pc.user_id = ".$id."
+		AND p.id = ".$project."
 		and pc.deleted_at is null
 		ORDER BY a.updated_at desc;";
 
-		$project = DB::select($query);
+		$assignment = DB::select($query);
 		return json_encode([
 			'status' => 1,
 			'assignment' => $assignment
