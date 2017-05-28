@@ -22,6 +22,7 @@ class AssignmentController extends Controller
 			$address = $request->input('address');
 			$lat = $request->input('lat');
 			$lng = $request->input('lat');
+			$ispc = $request->input('ispc');
 
 			$assignment = new Assignment;
 			$assignment->title = $title;
@@ -35,18 +36,31 @@ class AssignmentController extends Controller
 			$assignment->save();
 		}
 		catch (\Exception $e) {	
-			return json_encode([
-				'status' => 0,
-				'message' => 'Kesalahan Server. Silahkan coba lagi'
-				]);
+			if($ispc)
+			{
+				return back()->with('message', 'Server Error. Please Try Again');
+			}
+			else
+			{
+				return json_encode([
+					'status' => 0,
+					'message' => 'Kesalahan Server. Silahkan coba lagi'
+					]);
+			}
 		}
 
-
-		return json_encode([
-			'status' => 1,
-			'message' => 'Assignment Berhasil Dibuat.',
-			'assignment' => $assignment
-			]);
+		if($ispc)
+		{
+			return redirect('project/'.$project_id)->with('message', 'Assignment Created');
+		}
+		else
+		{
+			return json_encode([
+				'status' => 1,
+				'message' => 'Assignment Berhasil Dibuat.',
+				'assignment' => $assignment
+				]);
+		}
 	}
 
 	public function get(Request $request)

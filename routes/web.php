@@ -26,6 +26,14 @@ Route::group(['prefix' => 'project'], function () {
 	Route::get('/{id}/assignment/create', 'Assignment\AssignmentView@createAssignment');
 });
 
+Route::group(['prefix' => 'assignment'], function () {
+	Route::get('/{id}', 'Assignment\AssignmentView@showAssignment');
+});
+
+Route::group(['prefix' => 'assignment/{id}/report'], function () {
+	Route::get('/', 'AssignmentReport\AssignmentReportView@showAllReport');
+	Route::get('/{report_id}', 'AssignmentReport\AssignmentReportView@showReport');
+});
 
 Route::group(['prefix' => 'api'], function () {
 
@@ -58,6 +66,8 @@ Route::group(['prefix' => 'api'], function () {
 	Route::group(['prefix' => 'assignment/report'], function () {
 		Route::post('/get', 'AssignmentReport\AssignmentReportController@get');
 		Route::post('/create', 'AssignmentReport\AssignmentReportController@create');
+		Route::post('/get/all', 'AssignmentReport\AssignmentReportController@getall');
+		Route::post('/valuate', 'AssignmentReport\AssignmentReportController@valuateReport');
 	});
 
 
@@ -73,6 +83,7 @@ Route::group(['prefix' => 'api'], function () {
 		Route::post('/get', 'AssignmentQuest\AssignmentQuestController@get');
 		Route::post('/edit', 'AssignmentQuest\AssignmentQuestController@edit');
 		Route::post('/delete', 'AssignmentQuest\AssignmentQuestController@delete');
+		Route::post('/get/all', 'AssignmentQuest\AssignmentQuestController@getall');
 	});
 
 });

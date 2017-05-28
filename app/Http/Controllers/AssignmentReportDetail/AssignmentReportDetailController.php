@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AssignmentReportDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\AssignmentReportDetail;
+use App\AssignmentQuest;
 
 class AssignmentReportDetailController extends Controller
 {
@@ -63,13 +64,17 @@ class AssignmentReportDetailController extends Controller
 	public function get(Request $request)
 	{
 
-		$id = $request->input('id');
+		$assignment_id = $request->input('assignment_id');
+		$report_id = $request->input('report_id');
 
-		$detail = AssignmentReportDetail::find($id);
-
+		$details = AssignmentQuest::where('assignment_id',$assignment_id)->get();
+		foreach($details as $tmp)
+		{
+			$tmp->answer = AssignmentReportDetail::where([['assignment_quest_id',$tmp->id],['assignment_report_id',$report_id]])->first();
+		}
 		return json_encode([
 			'status' => 1,
-			'detail' => $detail;
+			'detail' => $details
 			]);
 	}
 }

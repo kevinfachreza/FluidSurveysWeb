@@ -74,6 +74,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Is PC</label>
+                    <div class="col-10">
+                        <input class="form-control" id="lat" name="ispc" type="text" placeholder="Address" value="1">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label"></label>
                     <div class="col-10">
                         <button  type="submit" class="btn btn-primary">Create Assignment</button>

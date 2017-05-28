@@ -7,10 +7,17 @@ use App\Http\Controllers\Controller;
 
 class AssignmentView extends Controller
 {
-    public function createAssignment($id)
-    {
+	public function showAssignment($id)
+	{
+		$data['assignment_id'] = $id;
+		return view('assignment.show',$data);
+	}
 
-    		$data['project_id'] = $id;
-        	return view('assignment.create',$data);
-    }
+
+	public function createAssignment($id)
+	{
+
+		$data['project_id'] = $id;
+		return view('assignment.create',$data);
+	}
 }

@@ -12,18 +12,22 @@ class AssignmentQuestController extends Controller
     {
 		$assignment_id = $request->input('assignment_id');
 		$question = $request->input('question');
-		$img = $request->input('img');
-		$type = $request->input('type');
+		$upload_pict = $request->input('upload_pict');
 		$id = $request->input('id');
+		$ispc = $request->input('ispc');
+		if($upload_pict == 'on') $upload_pict = 1;
+		else $upload_pict = 0;
 
     		$quest = new AssignmentQuest;
 		$quest->assignment_id = $assignment_id;
 		$quest->question = $question;
-		$quest->img = $img;
-		$quest->question_type = $type;
+		$quest->upload_pict = $upload_pict;
 		$quest->created_by = $id;
 		$quest->save();
-
+		if($ispc)
+		{
+			return redirect('assignment/'.$assignment_id)->with('message', 'Assignment Created');
+		}
 		return json_encode([
 			'status' => 1,
 			'message' => 'Pertanyaan berhasil ditambahkan'
@@ -35,15 +39,21 @@ class AssignmentQuestController extends Controller
     {
 		$assignment_id = $request->input('assignment_id');
 		$question = $request->input('question');
-		$img = $request->input('img');
-		$type = $request->input('type');
+		$upload_pict = $request->input('upload_pict');
 		$id = $request->input('id');
+		$ispc = $request->input('ispc');
+		if($upload_pict == 'on') $upload_pict = 1;
+		else $upload_pict = 0;
 
     		$quest = AssignmentQuest::find($id);
 		$quest->question = $question;
-		$quest->img = $img;
-		$quest->question_type = $type;
+		$quest->upload_pict = $upload_pict;
 		$quest->save();
+
+		if($ispc)
+		{
+			return redirect('assignment/'.$assignment_id)->with('message', 'Assignment Created');
+		}
 
 		return json_encode([
 			'status' => 1,
@@ -53,11 +63,16 @@ class AssignmentQuestController extends Controller
 
     public function delete(Request $request)
     {
-		$type = $request->input('type');
 		$id = $request->input('id');
+		$ispc = $request->input('ispc');
 
     		$quest = AssignmentQuest::find($id);
 		$quest->delete();
+
+		if($ispc)
+		{
+			return redirect('assignment/'.$id)->with('message', 'Assignment Deleted');
+		}
 
 		return json_encode([
 			'status' => 1,
@@ -70,11 +85,23 @@ class AssignmentQuestController extends Controller
 	{
 		$id = $request->input('id');
 
-		$report = AssignmentQuest::find($id);
+		$quest = AssignmentQuest::find($id);
 
 		return json_encode([
 			'status' => 1,
 			'quest' => $quest
+			]);
+	}
+
+	public function getall(Request $request)
+	{
+		$id = $request->input('id');
+
+		$report = AssignmentQuest::where('assignment_id',$id)->get();
+
+		return json_encode([
+			'status' => 1,
+			'questions' => $report
 			]);
 	}
 }
