@@ -21,7 +21,7 @@ class AssignmentController extends Controller
 			$place = $request->input('place');
 			$address = $request->input('address');
 			$lat = $request->input('lat');
-			$lng = $request->input('lat');
+			$lng = $request->input('lng');
 			$ispc = $request->input('ispc');
 
 			$assignment = new Assignment;
