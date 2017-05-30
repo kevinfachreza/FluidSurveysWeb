@@ -5,6 +5,9 @@
     <button class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#myModal">
         <i class="fa fa-plus"></i> New Project
     </button>
+    <button class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#myModal2">
+        <i class="fa fa-plus"></i> Add Employee
+    </button>
     <h1 class="display-4"> Projects </h1>
     <div class="list-group">
         <a ng-repeat="project in projects" href="{{url('')}}/project/@{{project.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -14,6 +17,37 @@
             </div>
             <p class="mb-1">@{{project.company}}</p>
         </a>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+
+       <form method="POST" action="{{url('api/user/register')}}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New Employee</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="ispc" class="form-control" placeholder="With Border" value="1">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Nama Pegawai">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" class="form-control" placeholder="Email Pegawai">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-info btn-fill">Add Employee</button>
+            </div>
+        </form>
     </div>
 </div>
 

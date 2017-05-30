@@ -115,11 +115,10 @@ class AssignmentController extends Controller
 	{
 		$project = $request->input('project');
 		
-		$query = "SELECT a.* FROM project p, project_collaborator pc, assignment a
-		WHERE p.id = pc.project_id 
-		AND a.project_id = p.id
+		$query = "SELECT a.* FROM project p, assignment a
+		WHERE 
+		 a.project_id = p.id
 		AND p.id = ".$project."
-		and pc.deleted_at is null
 		ORDER BY a.updated_at desc;";
 
 		$assignment = DB::select($query);

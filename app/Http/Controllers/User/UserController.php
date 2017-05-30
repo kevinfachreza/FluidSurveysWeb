@@ -17,7 +17,7 @@ class UserController extends Controller
 				'name' => 'required',
 				'email' => 'required|unique:users|max:255',
 				'password' => 'required',
-				'device_token' => 'required',
+				//'device_token' => 'required',
 				]);
 		}
 		catch (\Exception $e) {	
@@ -32,27 +32,37 @@ class UserController extends Controller
 			$name = $request->input('name');
 			$email = $request->input('email');
 			$password = $request->input('password');
-			$device_token = $request->input('device_token');
+			//$device_token = $request->input('device_token');
+			$ispc = $request->ispc;
 
 			$user = new User;
 			$user->name = $name;
 			$user->email = $email;
 			$user->password = bcrypt($password);
-			$user->device_token = $device_token;
+			//$user->device_token = $device_token;
 			$user->save();
 		}
-		catch (\Exception $e) {	
-			return json_encode([
+		catch (\Exception $e) {
+				
+				return json_encode([
 				'status' => 0,
 				'message' => 'Kesalahan Server. Registrasi Gagal. Silahkan coba lagi'
 				]);
+			
+			
 		}
-
-
-		return json_encode([
+		if($ispc)
+			{
+				return back()->with('message', 'Add Employe Success!!');
+			}
+			else{
+			return json_encode([
 			'status' => 1,
 			'message' => 'Registrasi Berhasil.'
 			]);
+			}
+
+
 	}
 
 	public function login(Request $request)

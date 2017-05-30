@@ -31,7 +31,7 @@
                     <span class="navbar-toggler-bar bar2"></span>
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
-                <a class="navbar-brand" href="#pablo">FluidSurveys</a>
+                <a class="navbar-brand" href="{{url('')}}">FluidSurveys</a>
             </div>
             <div class="collapse navbar-collapse justify-content-end" id="example-navbar-warning">
                 <ul class="navbar-nav">
@@ -72,7 +72,14 @@
     </div>
 </nav>
 
+
 <div id="wrapper" style="padding-top: 100px;padding-bottom: 100px">
+@if (session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
+
 @yield('content')
 </div>
 

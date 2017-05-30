@@ -71,7 +71,7 @@ class AssignmentQuestController extends Controller
 
 		if($ispc)
 		{
-			return redirect('assignment/'.$id)->with('message', 'Assignment Deleted');
+			return back()->with('message', 'Assignment Deleted');
 		}
 
 		return json_encode([

@@ -16,12 +16,25 @@ class AssignmentReportDetailController extends Controller
 		$answer = $request->input('answer');
 		$img = $request->input('img');
 		$id = $request->input('id');
+		$img_ext = $request->input('img_ext');
+		$path = NULL;
+		if(!empty($img))
+		{
+			$last_id = AssignmentReportDetail::orderBy('id', 'desc')->first();
+			$last_id = $last_id->id;
+			$last_id++;
+			$filename = 'img_'.$last_id;
+			$filename.='.'.$img_ext;
+			$path = 'img/report_detail/'.$filename;
+			$img = base64_decode($img);   
+		  	file_put_contents($path,$img);
+		}
 
 		$quest = new AssignmentReportDetail;
-		$quest->assignment_id = $assignment_id;
+		$quest->assignment_quest_id = $assignment_quest_id;
 		$quest->assignment_report_id = $assignment_report_id;
 		$quest->answer = $answer;
-		$quest->answer_img = $img;
+		$quest->answer_img = $path;
 		$quest->created_by = $id;
 		$quest->save();
 
