@@ -103,7 +103,7 @@ class ProjectController extends Controller
 	public function getall(Request $request)
 	{
 		$id = $request->input('id');
-		
+
 		$query = "SELECT p.* FROM project p, project_collaborator pc
 		WHERE p.id = pc.project_id 
 		AND pc.user_id = ".$id."
